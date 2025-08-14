@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>My Bookings - CampusFit</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --primary: #4361ee;
+    --secondary: #3a0ca3;
+    --dark: #1a1a2e;
+    --light: #f8fafc;
+    --gray: #6c757d;
+    --light-gray: #e9ecef;
+    --success: #4cc9f0;
+    --warning: #f8961e;
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+}
+
+header {
+    background: #fff;
+    color: var(--dark);
+    padding: 15px 30px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+header a {
+    color: var(--gray);
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 10px;
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+header a:hover {
+    color: var(--primary);
+    background: rgba(67, 97, 238, 0.1);
+}
+
+.wrap {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 16px;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 2px solid var(--light-gray);
+    margin-bottom: 20px;
+}
+
+.tab-link {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--gray);
+    position: relative;
+    border-bottom: 3px solid transparent;
+    transition: var(--transition);
+}
+
+.tab-link.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.booking-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 20px;
+    border: 1px solid var(--light-gray);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.booking-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.details h4 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.details p {
+    margin: 0;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.booking-actions {
+    text-align: right;
+}
+
+.status {
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+}
+
+.status-confirmed {
+    color: #0072ff;
+    background: rgba(0, 114, 255, 0.1);
+}
+
+.status-completed {
+    color: var(--gray);
+    background: var(--light-gray);
+}
+
+.star-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.star-rating .stars i {
+    font-size: 1.2rem;
+    color: var(--light-gray);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.star-rating .stars i:hover,
+.star-rating .stars i.hover {
+    color: var(--warning);
+}
+
+.btn-award {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+    font-size: 0.9rem;
+}
+
+.btn-award:hover {
+    background: var(--secondary);
+}
+
+.awarded {
+    font-weight: 600;
+    color: var(--warning);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--gray);
+}
+</style>
+</head>
+<body>
+    <header>
+        <div class="logo"><i class="fas fa-dumbbell"></i></div>
+        <nav>
+            <a href="{% if user.role == 'learner' %}{% url 'learner_dash' %}{% else %}{% url 'mentor_dash' %}{% endif %}">Dashboard</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </header>
+    
+    <div class="wrap">
+        <div class="tabs">
+            <button class="tab-link active" onclick="openTab(event, 'upcoming')">Upcoming</button>
+            <button class="tab-link" onclick="openTab(event, 'completed')">Completed</button>
+        </div>
+
+        <div id="upcoming" class="tab-content active">
+            {% for session in upcoming_sessions %}
+                <div class="booking-card">
+                    <div class="booking-info">
+                        <div class="avatar">
+                            {% if user_role == 'learner' %}
+                                {{ session.mentor.user.full_name|first|upper }}
+                            {% else %}
+                                {{ session.learner.user.full_name|first|upper }}
+                            {% endif %}
+                        </div>
+                        <div class="details">
+                            <h4>
+                                {% if user_role == 'learner' %}
+                                    {{ session.mentor.user.full_name }}
+                                {% else %}
+                                    {{ session.learner.user.full_name }}
+                                {% endif %}
+                            </h4>
+                            <p>{{ session.session_date|date:"l, M d, Y" }} at {{ session.session_date|time:"g:i A" }}</p>
+                        </div>
+                    </div>
+                    <div class="booking-actions">
+                        <span class="status status-confirmed">{{ session.status|title }}</span>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="empty-state">You have no upcoming sessions.</p>
+            {% endfor %}
+        </div>
+
+        <div id="completed" class="tab-content">
+            {% for session in completed_sessions %}
+                <div class="booking-card">
+                    <div class="booking-info">
+                        <div class="avatar">
+                             {% if user_role == 'learner' %}
+                                {{ session.mentor.user.full_name|first|upper }}
+                            {% else %}
+                                {{ session.learner.user.full_name|first|upper }}
+                            {% endif %}
+                        </div>
+                        <div class="details">
+                            <h4>
+                                {% if user_role == 'learner' %}
+                                    {{ session.mentor.user.full_name }}
+                                {% else %}
+                                    {{ session.learner.user.full_name }}
+                                {% endif %}
+                            </h4>
+                            <p>{{ session.session_date|date:"l, M d, Y" }}</p>
+                        </div>
+                    </div>
+                    <div class="booking-actions">
+                        {% if user_role == 'learner' %}
+                            {% if session.points_awarded == 0 %}
+                                <form action="{% url 'award_points' session.id %}" method="post" class="star-rating">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="points" value="0" class="points-input">
+                                    <div class="stars" data-session-id="{{ session.id }}">
+                                        <i class="far fa-star" data-value="1"></i>
+                                        <i class="far fa-star" data-value="2"></i>
+                                        <i class="far fa-star" data-value="3"></i>
+                                        <i class="far fa-star" data-value="4"></i>
+                                        <i class="far fa-star" data-value="5"></i>
+                                    </div>
+                                    <button type="submit" class="btn-award">Award</button>
+                                </form>
+                            {% else %}
+                                <div class="awarded">
+                                    <i class="fas fa-star"></i> Awarded: {{ session.points_awarded }} Points
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <div class="awarded">
+                                <i class="fas fa-star"></i> Received: {{ session.points_awarded }} Points
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <p class="empty-state">You have no completed sessions yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-link");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        document.querySelectorAll('.stars').forEach(starContainer => {
+            const stars = starContainer.querySelectorAll('i');
+            const pointsInput = starContainer.closest('form').querySelector('.points-input');
+
+            stars.forEach(star => {
+                star.addEventListener('mouseover', function() {
+                    let rating = this.dataset.value;
+                    stars.forEach(s => {
+                        s.classList.remove('hover');
+                        if (s.dataset.value <= rating) {
+                            s.classList.add('hover');
+                        }
+                    });
+                });
+
+                star.addEventListener('mouseout', function() {
+                    stars.forEach(s => s.classList.remove('hover'));
+                });
+
+                star.addEventListener('click', function() {
+                    let rating = this.dataset.value;
+                    pointsInput.value = rating;
+                    stars.forEach(s => {
+                        s.className = 'far fa-star'; // Reset
+                        if (s.dataset.value <= rating) {
+                            s.className = 'fas fa-star'; // Set solid star
+                            s.style.color = 'var(--warning)';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

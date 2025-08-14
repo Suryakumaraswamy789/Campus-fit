@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Learner Dashboard - CampusFit</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>:root{--primary:#4361ee;--secondary:#3a0ca3;--accent:#f72585;--dark:#1a1a2e;--light:#f8f9fa;--gray:#6c757d;--light-gray:#e9ecef;--success:#4cc9f0;--warning:#f8961e;--gradient:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);--shadow:0 4px 6px rgba(0,0,0,.1);--card-shadow:0 2px 4px rgba(0,0,0,.05);--border-radius:12px;--transition:all .3s cubic-bezier(.25,.8,.25,1)}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Poppins',sans-serif;background:#f8fafc;color:var(--dark);line-height:1.6;min-height:100vh}header{background:#fff;color:var(--dark);padding:0;box-shadow:var(--shadow);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(0,0,0,.05)}.header-container{max-width:1400px;margin:0 auto;padding:15px 30px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:1.5rem;font-weight:700;display:flex;align-items:center;color:var(--primary)}.logo i{margin-right:10px;font-size:1.8rem}nav{display:flex;align-items:center;gap:5px}nav a{margin-left:10px;padding:8px 15px;color:var(--gray);text-decoration:none;font-weight:500;border-radius:var(--border-radius);transition:var(--transition);display:flex;align-items:center;font-size:.9rem}nav a:hover{color:var(--primary);background:rgba(67,97,238,.1)}nav a i{margin-right:8px;font-size:.9rem}nav a.active{color:var(--primary);background:rgba(67,97,238,.1)}.user-profile{display:flex;align-items:center;margin-left:20px}.user-avatar{width:36px;height:36px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;margin-right:10px;color:#fff;font-weight:700;cursor:pointer;transition:var(--transition)}.user-avatar:hover{transform:scale(1.05)}.container{max-width:1400px;margin:30px auto;padding:0 30px}.welcome-banner{background:var(--gradient);color:#fff;padding:30px;border-radius:var(--border-radius);margin-bottom:30px;position:relative;overflow:hidden;box-shadow:var(--shadow)}.welcome-banner::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.1)}.welcome-banner h1{font-size:2rem;margin-bottom:10px;position:relative;font-weight:600}.welcome-banner p{opacity:.9;margin-bottom:20px;max-width:600px;font-weight:300}.panel{background:#fff;padding:25px;border-radius:var(--border-radius);box-shadow:var(--card-shadow);margin-bottom:30px;border:1px solid rgba(0,0,0,.05)}.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.panel h3{font-size:1.3rem;color:var(--dark);display:flex;align-items:center;font-weight:600}.panel h3 i{margin-right:10px;color:var(--primary)}.btn{display:inline-flex;align-items:center;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;transition:var(--transition);font-size:.9rem;border:none;cursor:pointer}.btn-sm{padding:8px 15px;font-size:.85rem}.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--secondary);transform:translateY(-2px);box-shadow:0 5px 15px rgba(67,97,238,.3)}.btn-outline{background:transparent;color:var(--primary);border:1px solid var(--primary)}.btn-outline:hover{background:rgba(67,97,238,.1)}.mentors-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}.mentor-card{padding:20px;border-radius:var(--border-radius);background:#fff;transition:var(--transition);border:1px solid rgba(0,0,0,.05);box-shadow:var(--card-shadow);display:flex;flex-direction:column}.mentor-card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(0,0,0,.1)}.mentor-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:15px}.mentor-info{display:flex;align-items:center;gap:15px}.mentor-avatar{width:50px;height:50px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1.2rem}.mentor-details h4{font-weight:600;margin-bottom:3px;color:var(--dark)}.mentor-details p{font-size:.8rem;color:var(--gray)}.mentor-specialty{display:inline-block;padding:3px 8px;background:rgba(67,97,238,.1);color:var(--primary);border-radius:50px;font-size:.7rem;font-weight:600;margin-top:5px}.mentor-points{background:rgba(76,201,240,.1);color:var(--success);padding:5px 10px;border-radius:50px;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:5px}.mentor-points i{font-size:.7rem}.mentor-bio{color:var(--gray);font-size:.9rem;margin-bottom:20px;line-height:1.6;flex-grow:1}.mentor-footer{display:flex;justify-content:flex-end;align-items:center}.goal-badge{display:inline-block;padding:8px 15px;background:rgba(248,37,133,.1);color:var(--accent);border-radius:50px;font-size:.85rem;font-weight:600;margin-bottom:20px;border:1px solid rgba(248,37,133,.2)}.empty-state{text-align:center;padding:40px 20px;color:var(--gray);grid-column:1/-1}.empty-state i{font-size:2.5rem;color:var(--light-gray);margin-bottom:15px}.empty-state h4{font-size:1.2rem;margin-bottom:10px;color:var(--dark)}.empty-state p{margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto}.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;margin-bottom:30px}.stat-card{background:#fff;padding:20px;border-radius:var(--border-radius);box-shadow:var(--card-shadow);border:1px solid rgba(0,0,0,.05);text-align:center}.stat-card i{font-size:1.5rem;color:var(--primary);margin-bottom:10px}.stat-value{font-size:1.8rem;font-weight:700;color:var(--dark);margin-bottom:5px}.stat-label{font-size:.85rem;color:var(--gray)}</style>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <div class="logo"><i class="fas fa-dumbbell"></i><span>CampusFit</span></div>
+        <nav>
+            <a href="{% url 'mentor_profiles' %}" class="active"><i class="fas fa-search"></i> Browse</a>
+            <a href="{% url 'booking' %}"><i class="fas fa-calendar-alt"></i> Bookings</a>
+            <a href="{% url 'progress_tracker' %}"><i class="fas fa-chart-line"></i> Progress</a>
+            <a href="{% url 'diet_plans' %}"><i class="fas fa-utensils"></i> Diet</a>
+            <a href="{% url 'leaderboard' %}"><i class="fas fa-trophy"></i> Leaderboard</a>
+            <div class="user-profile">
+                <div class="user-avatar">{{ learner.user.full_name|first|upper }}</div>
+                 <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="welcome-banner">
+        <h1>Welcome back, {{ learner.user.full_name }}!</h1>
+        <p>Ready to continue your fitness journey? Here's a summary of your activity.</p>
+        <div class="goal-badge"><i class="fas fa-bullseye"></i> Your Goal: {{ learner.get_goal_display }}</div>
+    </div>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <i class="fas fa-calendar-check"></i>
+            <div class="stat-value">{{ upcoming_session_count }}</div>
+            <div class="stat-label">Upcoming Sessions</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-fire-alt"></i>
+            <div class="stat-value">{{ completed_session_count }}</div>
+            <div class="stat-label">Workouts Completed</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-medal"></i>
+            <div class="stat-value">{{ points_given_to_mentors }}</div>
+            <div class="stat-label">Points Given to Mentors</div>
+        </div>
+    </div>
+    
+    <div class="panel">
+        <div class="panel-header">
+            <h3><i class="fas fa-star"></i> Recommended Mentors</h3>
+            <a href="{% url 'mentor_profiles' %}" class="btn btn-outline btn-sm">
+                <i class="fas fa-search"></i> Browse All
+            </a>
+        </div>
+        <div class="mentors-grid">
+        {% for mentor in recommended_mentors %}
+            <div class="mentor-card">
+                <div class="mentor-header">
+                    <div class="mentor-info">
+                        <div class="mentor-avatar">{{ mentor.user.full_name|first|upper }}</div>
+                        <div class="mentor-details">
+                            <h4>{{ mentor.user.full_name }}</h4>
+                            <div class="mentor-specialty">{{ mentor.specialization }}</div>
+                        </div>
+                    </div>
+                    <div class="mentor-points">
+                        <i class="fas fa-bolt"></i> {{ mentor.points }} pts
+                    </div>
+                </div>
+                <p class="mentor-bio">{{ mentor.bio|truncatechars:160 }}</p>
+                <div class="mentor-footer">
+                    <a href="{% url 'book_session' mentor.pk %}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-calendar-plus"></i> Book
+                    </a>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-state">
+                <i class="fas fa-user-slash"></i>
+                <h4>No mentors match your goal yet</h4>
+                <p>We couldn't find mentors matching your specific goal. Why not browse all our available mentors?</p>
+                <a href="{% url 'mentor_profiles' %}" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Browse All Mentors
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

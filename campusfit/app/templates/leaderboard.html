@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Leaderboard - CampusFit</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --primary: #4361ee;
+    --secondary: #3a0ca3;
+    --dark: #1a1a2e;
+    --light: #f8fafc;
+    --gray: #6c757d;
+    --light-gray: #e9ecef;
+    --gold: #ffd700;
+    --silver: #c0c0c0;
+    --bronze: #cd7f32;
+    --border-radius: 12px;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+}
+header {
+    background: #fff;
+    color: var(--dark);
+    padding: 15px 30px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+header a {
+    color: var(--gray);
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 10px;
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+header a:hover {
+    color: var(--primary);
+    background: rgba(67, 97, 238, 0.1);
+}
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 16px;
+}
+.leaderboard-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.mentor-entry {
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--light-gray);
+}
+.mentor-entry:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+.rank {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray);
+    width: 50px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.rank .fas {
+    font-size: 1.2em;
+}
+.rank.gold { color: var(--gold); }
+.rank.silver { color: var(--silver); }
+.rank.bronze { color: var(--bronze); }
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin: 0 15px;
+    flex-shrink: 0;
+}
+.details {
+    flex-grow: 1;
+}
+.details .name {
+    font-weight: 600;
+    font-size: 1.1em;
+    margin: 0;
+}
+.details .spec {
+    color: var(--gray);
+    font-size: 0.9em;
+    margin: 0;
+}
+.points {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: right;
+}
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--gray);
+}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo"><i class="fas fa-dumbbell"></i></div>
+    <nav>
+      <a href="{% if request.user.role == 'learner' %}{% url 'learner_dash' %}{% else %}{% url 'mentor_dash' %}{% endif %}">Dashboard</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2 style="text-align:center;color:#2c3e50;margin-bottom:30px;">Mentor Leaderboard</h2>
+    
+    <ol class="leaderboard-list">
+      {% for mentor in mentors %}
+      <li class="mentor-entry">
+        <div class="rank 
+            {% if forloop.counter == 1 %}gold{% endif %}
+            {% if forloop.counter == 2 %}silver{% endif %}
+            {% if forloop.counter == 3 %}bronze{% endif %}">
+          
+            {% if forloop.counter <= 3 %}
+                <i class="fas fa-trophy"></i>
+            {% else %}
+                {{ forloop.counter }}
+            {% endif %}
+        </div>
+        <div class="avatar">{{ mentor.user.full_name|first|upper }}</div>
+        <div class="details">
+          <p class="name">{{ mentor.user.full_name }}</p>
+          <p class="spec">{{ mentor.specialization }}</p>
+        </div>
+        <div class="points">{{ mentor.points }} pts</div>
+      </li>
+      {% empty %}
+        <li class="empty-state">No mentors have earned points yet.</li>
+      {% endfor %}
+    </ol>
+  </div>
+</body>
+</html>

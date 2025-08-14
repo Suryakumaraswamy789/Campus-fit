@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Workout Recommendation - CampusFit</title>
+<style>body{margin:0;font-family:Arial,sans-serif;background:#f4f7f9;} header{background:#2c3e50;color:#fff;padding:16px;text-align:center;} header a{color:#fff;text-decoration:none;font-weight:700;margin:0 15px;} .wrap{max-width:700px;margin:24px auto;padding:16px;} .panel{background:#fff;padding:25px;border-radius:10px;box-shadow:0 6px 20px rgba(10,20,30,.05);} form{display:flex;gap:10px;align-items:center;} select{flex-grow:1;padding:12px;border-radius:8px;border:1px solid #ccc;font-size:16px;} button{padding:12px 20px;border:0;background:#3498db;color:#fff;font-weight:700;border-radius:8px;cursor:pointer;font-size:16px;} .result{margin-top:25px;background:#f9fafb;padding:20px;border-radius:8px;border-left:5px solid #2ecc71;} .result h4{margin:0 0 10px;color:#27ae60;}
+</style>
+</head>
+<body>
+  <header>
+    <a href="{% url 'learner_dash' %}">Dashboard</a>
+    <a href="{% url 'logout' %}">Logout</a>
+  </header>
+  <div class="wrap">
+    <h2 style="text-align:center;margin-bottom:24px;color:#2c3e50;">Get a Workout Recommendation</h2>
+    <div class="panel">
+      <form method="post" action="{% url 'recommendations' %}">
+        {% csrf_token %}
+        <select name="goal" required>
+          <option value="" disabled selected>Select your fitness goal...</option>
+          <option value="weight_loss">Weight Loss</option>
+          <option value="muscle_gain">Muscle Gain</option>
+          <option value="stamina">Stamina/Endurance</option>
+        </select>
+        <button type="submit">Recommend</button>
+      </form>
+      {% if recommendation %}
+      <div class="result">
+        <h4>Recommendation Found!</h4>
+        <p><strong>Recommended Mentor Type:</strong> {{ recommendation.mentor_type }}</p>
+        <p><strong>Sample Plan:</strong> {{ recommendation.plan }}</p>
+        <p style="margin-top:15px;"><a href="{% url 'mentor_profiles' %}" style="font-weight:bold;">Browse matching mentors now &rarr;</a></p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

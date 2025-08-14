@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CampusFit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+    :root {
+        --primary: #00c6ff;
+        --secondary: #0072ff;
+        --accent: #ff6b6b;
+        --dark: #1a1a2e;
+        --light: #f8f9fa;
+        --gray: #6c757d;
+        --light-gray: #e9ecef;
+        --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        --shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: var(--light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 20px;
+        background-image: 
+            radial-gradient(circle at 10% 20%, rgba(0, 198, 255, 0.05) 0%, rgba(0, 198, 255, 0.05) 90%),
+            radial-gradient(circle at 90% 80%, rgba(255, 107, 107, 0.05) 0%, rgba(255, 107, 107, 0.05) 90%);
+    }
+
+    .login-container {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        width: 100%;
+        max-width: 900px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        animation: fadeInUp 0.8s ease;
+    }
+
+    .illustration-section {
+        background: var(--gradient);
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .illustration-section::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .illustration-section::after {
+        content: '';
+        position: absolute;
+        bottom: -80px;
+        left: -30px;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .illustration-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .illustration-content h1 {
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .illustration-content p {
+        opacity: 0.9;
+        margin-bottom: 30px;
+        font-size: 0.95rem;
+    }
+
+    .illustration-img {
+        width: 100%;
+        max-width: 300px;
+        margin: 20px 0;
+    }
+
+    .form-section {
+        padding: 50px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-header h2 {
+        font-size: 1.8rem;
+        color: var(--dark);
+        margin-bottom: 10px;
+    }
+
+    .form-header p {
+        color: var(--gray);
+        font-size: 0.95rem;
+    }
+
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-group {
+        position: relative;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        color: var(--dark);
+        font-weight: 500;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--light-gray);
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        background-color: #f8fafc;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(0, 198, 255, 0.2);
+    }
+
+    .form-control::placeholder {
+        color: #adb5bd;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: var(--gray);
+    }
+
+    .btn {
+        padding: 12px;
+        border-radius: 8px;
+        border: none;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .btn-primary {
+        background: var(--primary);
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #00b4e6;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 198, 255, 0.3);
+    }
+
+    .forgot-link {
+        text-align: right;
+        margin-top: -10px;
+    }
+
+    .forgot-link a {
+        color: var(--gray);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    .forgot-link a:hover {
+        color: var(--primary);
+    }
+
+    .signup-link {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: var(--gray);
+    }
+
+    .signup-link a {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .signup-link a:hover {
+        text-decoration: underline;
+    }
+
+    /* Error messages */
+    .alert {
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+    }
+
+    .alert-error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .login-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .illustration-section {
+            display: none;
+        }
+        
+        .form-section {
+            padding: 30px 25px;
+        }
+        
+        .form-header h2 {
+            font-size: 1.5rem;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="illustration-section">
+            <div class="illustration-content">
+                <h1>Welcome Back to CampusFit</h1>
+                <p>Continue your fitness journey with personalized mentorship and training</p>
+                <img src="https://illustrations.popsy.co/amber/young-woman-exercising.svg" alt="Fitness Illustration" class="illustration-img">
+                <p>Not a member yet? <a href="{% url 'sign' %}" style="color: white; text-decoration: underline;">Join now</a></p>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="form-header">
+                <h2>Account Login</h2>
+                <p>Enter your credentials to access your account</p>
+            </div>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            
+            <form method="post" action="{% url 'login_view' %}" class="login-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="email">College Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="example@college.edu" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                    <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                    <div class="forgot-link">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            
+            <p class="signup-link">Don't have an account? <a href="{% url 'sign' %}">Sign up here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Toggle password visibility
+        const togglePassword = document.querySelector('#togglePassword');
+        const password = document.querySelector('#password');
+        
+        togglePassword.addEventListener('click', function() {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Browse Mentors - CampusFit</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+    --primary: #4361ee; --secondary: #3a0ca3; --dark: #1a1a2e; --light: #f8fafc; --gray: #6c757d;
+    --light-gray: #e9ecef; --success: #4cc9f0; --warning: #f8961e; --border-radius: 12px;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+}
+header {
+    background: #fff;
+    color: var(--dark);
+    padding: 15px 30px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+header a {
+    color: var(--gray);
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 10px;
+    padding: 8px 15px;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+}
+header a:hover {
+    color: var(--primary);
+    background: rgba(67, 97, 238, 0.1);
+}
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 16px;
+}
+.mentors-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+.mentor-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--light-gray);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+.mentor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+.mentor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+.mentor-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.mentor-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+.mentor-details h4 {
+    font-weight: 600;
+    margin: 0 0 3px 0;
+}
+.mentor-specialty {
+    display: inline-block;
+    padding: 3px 8px;
+    background: rgba(67, 97, 238, 0.1);
+    color: var(--primary);
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+.mentor-points {
+    background: rgba(76, 201, 240, 0.1);
+    color: var(--success);
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+}
+.mentor-bio {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+.btn-book {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    background: var(--primary);
+    color: #fff;
+    align-self: flex-end;
+}
+.btn-book:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+}
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: var(--gray);
+}
+</style>
+</head>
+<body>
+  <header>
+    <div class="logo"><i class="fas fa-dumbbell"></i></div>
+    <nav>
+      <a href="{% url 'learner_dash' %}">Dashboard</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2 style="text-align:center;color:#2c3e50;margin-bottom:30px;">Browse All Mentors</h2>
+    
+    <div class="mentors-grid">
+    {% for mentor in mentors %}
+      <div class="mentor-card">
+        <div class="mentor-header">
+          <div class="mentor-info">
+            <div class="mentor-avatar">{{ mentor.user.full_name|first|upper }}</div>
+            <div class="mentor-details">
+              <h4>{{ mentor.user.full_name }}</h4>
+              <div class="mentor-specialty">{{ mentor.specialization }}</div>
+            </div>
+          </div>
+          <div class="mentor-points">
+            <i class="fas fa-bolt"></i> {{ mentor.points }} pts
+          </div>
+        </div>
+        <p class="mentor-bio">{{ mentor.bio }}</p>
+        <a href="{% url 'book_session' mentor.pk %}" class="btn-book">
+            <i class="fas fa-calendar-plus" style="margin-right: 8px;"></i> Book Session
+        </a>
+      </div>
+    {% empty %}
+      <p class="empty-state">No mentors have signed up yet.</p>
+    {% endfor %}
+    </div>
+  </div>
+</body>
+</html>
