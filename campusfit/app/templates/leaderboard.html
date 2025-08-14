@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Leaderboard - CampusFit</title>
+<style>
+    body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;}
+    header{background:#2c3e50;color:#fff;padding:16px;}
+    header .wrap{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+    nav a{margin-left:16px;color:#fff;text-decoration:none;font-weight:700}
+    .container{max-width:800px;margin:24px auto;padding:16px;}
+    .leaderboard-panel{background:#fff;border-radius:10px;box-shadow:0 6px 18px rgba(10,20,30,.05);overflow:hidden;}
+    ol{margin:0;padding:0;list-style-type:none;}
+    li{display:flex;align-items:center;padding:15px;border-bottom:1px solid #f1f4f7;}
+    li:last-child{border-bottom:none;}
+    .rank{font-size:1.2em;font-weight:bold;color:#95a5a6;width:40px;}
+    .details{flex-grow:1;}
+    .details .name{font-weight:bold;font-size:1.1em;}
+    .details .spec{color:#7f8c8d;font-size:0.9em;}
+    .points{font-size:1.2em;font-weight:bold;color:#e67e22;}
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div><strong>CampusFit</strong></div>
+      <nav>
+        <a href="{% if request.user.role == 'learner' %}{% url 'learner_dash' %}{% else %}{% url 'mentor_dash' %}{% endif %}">Dashboard</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      </nav>
+    </div>
+  </header>
+  <div class="container">
+    <h2 style="text-align:center;color:#2c3e50;margin-bottom:24px;">Mentor Leaderboard</h2>
+    <div class="leaderboard-panel">
+      <ol>
+        {% for mentor in mentors %}
+        <li>
+          <div class="rank">{{ forloop.counter }}</div>
+          <div class="details">
+            <div class="name">{{ mentor.user.full_name }}</div>
+            <div class="spec">{{ mentor.specialization }}</div>
+          </div>
+          <div class="points">{{ mentor.points }} pts</div>
+        </li>
+        {% empty %}
+          <p style="text-align:center;padding:20px;">No mentors have earned points yet.</p>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+</body>
+</html>

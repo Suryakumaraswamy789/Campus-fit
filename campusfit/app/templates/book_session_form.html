@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Book a Session - CampusFit</title>
+<style>
+    body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;}
+    header{background:#2c3e50;color:#fff;padding:16px;}
+    header .wrap{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+    nav a{margin-left:16px;color:#fff;text-decoration:none;font-weight:700}
+    .container{max-width:500px;margin:24px auto;padding:16px;}
+    .form-panel{background:#fff;padding:30px;border-radius:10px;box-shadow:0 6px 18px rgba(10,20,30,.05);}
+    .form-panel h2{text-align:center;margin:0 0 20px;}
+    form{display:flex;flex-direction:column;gap:15px;}
+    input[type="date"], input[type="time"]{padding:12px;border:1px solid #ccc;border-radius:8px;font-size:16px;font-family:Arial;}
+    button{padding:12px;border:0;background:#27ae60;color:#fff;font-weight:bold;font-size:16px;border-radius:8px;cursor:pointer;transition:background .2s;}
+    button:hover{background:#2ecc71;}
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div><strong>CampusFit</strong></div>
+      <nav><a href="{% url 'learner_dash' %}">Dashboard</a><a href="{% url 'logout' %}">Logout</a></nav>
+    </div>
+  </header>
+  <div class="container">
+    <div class="form-panel">
+      <h2>Book a Session with <br>{{ mentor.user.full_name }}</h2>
+      <form method="post" action="{% url 'book_session' mentor.pk %}">
+        {% csrf_token %}
+        <div>
+          <label for="session_date">Select a Date:</label>
+          <input type="date" id="session_date" name="session_date" required>
+        </div>
+        <div>
+          <label for="session_time">Select a Time:</label>
+          <input type="time" id="session_time" name="session_time" required>
+        </div>
+        <button type="submit">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

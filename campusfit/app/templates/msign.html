@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mentor Signup - CampusFit</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+:root {
+  --primary: #ff7e5f;
+  --secondary: #ff9a76;
+  --accent: #00c6ff;
+  --dark: #1a1a2e;
+  --light: #f8f9fa;
+  --gray: #6c757d;
+  --light-gray: #e9ecef;
+  --success: #28a745;
+  --danger: #dc3545;
+  --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  --shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255, 126, 95, 0.05) 0%, rgba(255, 126, 95, 0.05) 90%),
+    radial-gradient(circle at 90% 80%, rgba(0, 198, 255, 0.05) 0%, rgba(0, 198, 255, 0.05) 90%);
+}
+
+.signup-container {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  animation: fadeInUp 0.8s ease;
+}
+
+.illustration-section {
+  background: var(--gradient);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.illustration-section::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.illustration-section::after {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: -30px;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.illustration-content {
+  position: relative;
+  z-index: 2;
+}
+
+.illustration-content h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.illustration-content p {
+  opacity: 0.9;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+.illustration-img {
+  width: 100%;
+  max-width: 300px;
+  margin: 20px 0;
+}
+
+.benefits-list {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.benefits-list li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.benefits-list i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.form-section {
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-header h2 {
+  font-size: 1.8rem;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.form-header p {
+  color: var(--gray);
+  font-size: 0.95rem;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: var(--dark);
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--light-gray);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.2);
+}
+
+.form-control::placeholder {
+  color: #adb5bd;
+}
+
+textarea.form-control {
+  min-height: 100px;
+}
+
+.char-count {
+  font-size: 0.8rem;
+  color: var(--gray);
+  text-align: right;
+  margin-top: 5px;
+}
+
+.btn {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #ff6b4d;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 126, 95, 0.3);
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--gray);
+}
+
+.login-link a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Error messages */
+.alert {
+  padding: 12px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--gray);
+}
+
+.specialization-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.tag {
+  background: rgba(255, 126, 95, 0.1);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.tag-remove {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .signup-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .illustration-section {
+    display: none;
+  }
+  
+  .form-section {
+    padding: 30px 25px;
+  }
+  
+  .form-header h2 {
+    font-size: 1.5rem;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="signup-container">
+    <div class="illustration-section">
+      <div class="illustration-content">
+        <h1>Become a CampusFit Mentor</h1>
+        <p>Share your expertise and help fellow students achieve their fitness goals</p>
+        <img src="https://illustrations.popsy.co/amber/personal-trainer.svg" alt="Trainer Illustration" class="illustration-img">
+        
+        <ul class="benefits-list">
+          <li><i class="fas fa-check-circle"></i> Build your training reputation</li>
+          <li><i class="fas fa-check-circle"></i> Earn rewards and points</li>
+          <li><i class="fas fa-check-circle"></i> Flexible scheduling</li>
+          <li><i class="fas fa-check-circle"></i> Help others transform</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <div class="form-header">
+        <h2>Mentor Application</h2>
+        <p>Please provide your details to join our mentor program</p>
+      </div>
+      
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      
+      <form method="post" action="{% url 'msign' %}" class="signup-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+          <label for="full_name">Full Name</label>
+          <input type="text" id="full_name" name="full_name" class="form-control" placeholder="Enter your full name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">College Email</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="example@college.edu" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="specialization">Specialization</label>
+          <input type="text" id="specialization" name="specialization" class="form-control" placeholder="E.g. Weightlifting, Yoga, Cardio" required>
+          <div class="specialization-tags" id="tags-container"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="experience">Years of Experience</label>
+          <input type="number" id="experience" name="experience" class="form-control" placeholder="Enter years of training experience" min="0" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="bio">Training Approach/Bio</label>
+          <textarea id="bio" name="bio" class="form-control" placeholder="Describe your training philosophy and experience (max 250 characters)" maxlength="250"></textarea>
+          <div class="char-count"><span id="char-count">0</span>/250 characters</div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Create a password" required>
+          <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+        </div>
+        
+        <div class="form-group">
+          <label for="password2">Confirm Password</label>
+          <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm your password" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Apply as Mentor</button>
+      </form>
+      
+      <p class="login-link">Already have an account? <a href="{% url 'login_view' %}">Login here</a></p>
+    </div>
+  </div>
+
+  <script>
+    // Toggle password visibility
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    
+    togglePassword.addEventListener('click', function() {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.classList.toggle('fa-eye-slash');
+    });
+    
+    // Character counter for bio
+    const bio = document.getElementById('bio');
+    const charCount = document.getElementById('char-count');
+    
+    bio.addEventListener('input', function() {
+      charCount.textContent = this.value.length;
+    });
+    
+    // Form validation
+    document.querySelector('.signup-form').addEventListener('submit', function(e) {
+      const password = document.getElementById('password').value;
+      const password2 = document.getElementById('password2').value;
+      
+      if (password !== password2) {
+        e.preventDefault();
+        alert('Passwords do not match!');
+      }
+    });
+    
+    // Specialization tags
+    const specializationInput = document.getElementById('specialization');
+    const tagsContainer = document.getElementById('tags-container');
+    
+    specializationInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        const value = this.value.trim();
+        
+        if (value) {
+          addTag(value);
+          this.value = '';
+        }
+      }
+    });
+    
+    function addTag(text) {
+      const tag = document.createElement('div');
+      tag.className = 'tag';
+      tag.innerHTML = `
+        ${text}
+        <span class="tag-remove"><i class="fas fa-times"></i></span>
+        <input type="hidden" name="specializations[]" value="${text}">
+      `;
+      
+      tagsContainer.appendChild(tag);
+      
+      tag.querySelector('.tag-remove').addEventListener('click', function() {
+        tag.remove();
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Browse Mentors - CampusFit</title>
+<style>
+    body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;}
+    header{background:#2c3e50;color:#fff;padding:16px;}
+    header .wrap{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+    nav a{margin-left:16px;color:#fff;text-decoration:none;font-weight:700}
+    .container{max-width:900px;margin:24px auto;padding:16px;}
+    .mentor-card{background:#fff;padding:20px;border-radius:10px;box-shadow:0 6px 18px rgba(10,20,30,.05);margin-bottom:16px;border-left:5px solid #3498db;}
+    .mentor-card h3{margin:0 0 5px;}
+    .mentor-card .stats{font-weight:bold;color:#3498db; margin-bottom: 10px;}
+    .mentor-card p{color:#555;line-height:1.6; margin-bottom: 15px;}
+    .btn-book{display:inline-block;padding:8px 16px;background:#27ae60;color:#fff;text-decoration:none;border-radius:6px;font-weight:bold;transition:background .2s;}
+    .btn-book:hover{background:#2ecc71;}
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div><strong>CampusFit</strong></div>
+      <nav><a href="{% url 'learner_dash' %}">Dashboard</a><a href="{% url 'logout' %}">Logout</a></nav>
+    </div>
+  </header>
+  <div class="container">
+    <h2 style="text-align:center;color:#2c3e50;margin-bottom:24px;">Browse All Mentors</h2>
+    {% for mentor in mentors %}
+      <div class="mentor-card">
+        <h3>{{ mentor.user.full_name }}</h3>
+        <div class="stats">{{ mentor.specialization }} &bull; {{ mentor.points }} Points ★</div>
+        <p>{{ mentor.bio }}</p>
+        <a href="{% url 'book_session' mentor.pk %}" class="btn-book">Book Session</a>
+      </div>
+    {% empty %}
+      <p style="text-align:center;">No mentors have signed up yet.</p>
+    {% endfor %}
+  </div>
+</body>
+</html>
